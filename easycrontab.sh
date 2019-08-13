@@ -64,7 +64,7 @@ read week
 a="$minute $hour $day $month $week"
 ;;
 5)
-a="@reboot"
+a="@reboot	"
 ;;
 *)
 a="* * * * *"
