@@ -85,7 +85,7 @@ read temp
 
 remove() {
 clear
-echo "Warning it doesnt work"
+echo "Remove"
 echo "==========================================="
 cat -n /etc/crontab
 echo "==========================================="
@@ -101,6 +101,10 @@ rm /tmp/crontab
 fi
 }
 
+edit() {
+nano /etc/crontab
+}
+
 main() {
 clear
 echo "==================================================="
@@ -113,7 +117,8 @@ echo "==================================================="
 echo " 1) Create"
 echo " 2) List"
 echo " 3) Remove"
-echo " 4) Exit"
+echo " 4) Edit"
+echo " 5) Exit"
 read o
 case "$o" in
 "exit"|"q")
@@ -129,6 +134,9 @@ list
 remove
 ;;
 4)
+edit
+;;
+5)
 exit
 ;;
 *)
