@@ -48,17 +48,17 @@ read minute
 a="$minute $hour * * $week"
 ;;
 99)
-echo "Minute(* = Every minute, */5 = Every 5 Minutes)"
+echo "Minute           (* = Every minute, */5 = Every 5 Minutes)"
 read minute
-echo "Hour(* = Every hour , */5 = Every 5 Hours)"
+echo "Hour             (* = Every hour , */5 = Every 5 Hours)"
 read hour
 echo "Day of the Month (* = Every Day, */5 = Every 5 Days)"
 read day
-echo "Month (* = Every Month , */5 = Every 5 Months)"
+echo "Month            (* = Every Month , */5 = Every 5 Months)"
 read month
 echo "Day of the week"
-echo "0&7=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday"
-echo "5=Friday, 6=Saturday, *=Every Week"
+echo "                 0&7=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday"
+echo "                 5=Friday, 6=Saturday, *=Every Week"
 read week
 a="$minute $hour $day $month $week"
 ;;
@@ -81,12 +81,20 @@ read temp
 
 remove() {
 clear
+echo "Warning it doesnt work"
 echo "==========================================="
 cat -n /etc/crontab
 echo "==========================================="
 echo "Line?"
 read line
-echo "$(sed '$lined' /etc/crontab)" > /etc/crontab
+if [[ $line != "" ]]
+then
+touch /tmp/crontab
+sed -e "$(echo $line )d" /etc/crontab > /tmp/crontab
+cp /tmp/crontab /etc/crontab
+rm /tmp/crontab
+
+fi
 }
 
 main() {
@@ -101,6 +109,7 @@ echo "==================================================="
 echo " 1) Create"
 echo " 2) List"
 echo " 3) Remove"
+echo " 4) Exit"
 read o
 case "$o" in
 "exit"|"q")
@@ -114,6 +123,9 @@ list
 ;;
 3)
 remove
+;;
+4)
+exit
 ;;
 *)
 echo ""
