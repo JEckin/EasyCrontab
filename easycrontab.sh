@@ -11,6 +11,7 @@ clear
 echo "1) Every day at certain Time 2) Every certain Minute"
 echo "3) Certain Day in a Month at certain Time"
 echo "4) Certain Day in every Week at certain Time"
+echo "5) Every reboot"
 echo "99) Other"
 read c
 case "$c" in
@@ -62,6 +63,8 @@ echo "                 5=Friday, 6=Saturday, *=Every Week"
 read week
 a="$minute $hour $day $month $week"
 ;;
+5)
+a="@reboot"
 *)
 a="* * * * *"
 ;;
