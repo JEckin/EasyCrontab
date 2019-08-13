@@ -1,4 +1,5 @@
 #!/bin/bash
+cp /etc/crontab /etc/backup-crontab
 cp easycrontab.sh /bin/easycron
 cp easycrontab.sh /bin/ecrontab
 chmod +x /bin/easycron
