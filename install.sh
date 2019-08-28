@@ -1,4 +1,7 @@
 #!/bin/bash
+apt-get install cron
+apt-get install nano
+
 cp /etc/crontab /etc/backup-crontab
 cp easycrontab.sh /bin/easycron
 cp easycrontab.sh /bin/ecrontab
