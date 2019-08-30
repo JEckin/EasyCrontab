@@ -74,6 +74,77 @@ echo "$a	$user	$command" >> /etc/crontab
 list
 }
 
+backup() {
+clear
+echo "1) Create Backup from Crontab"
+echo "2) Create a Crontab auto backup"
+echo "3) List all Backups"
+echo "4) Cancel"
+read t
+date=$(date +"%H:%M_%d.%m.%Y")
+if [[ ! -d /etc/crontab-backup ]]
+then
+mkdir /etc/crontab-backup
+fi
+case "$t" in
+1)
+cp /etc/crontab /etc/crontab-backup/backup-$date
+clear
+echo "Backup folder: /etc/crontab-backup"
+echo "============================="
+ls -l /etc/crontab-backup/
+echo "============================="
+echo "Press enter..."
+read temp
+;;
+2)
+clear
+echo "1) Every month"
+echo "2) Every Day"
+read tt
+if [[ $tt == "1" ]]
+then
+clear
+echo "User:"
+read user
+echo "Minute:"
+read minute
+echo "Hour:"
+read hour
+echo "Day:"
+read day
+a="$minute $hour $day * *"
+else
+clear
+echo "User:"
+read user
+echo "Minute:"
+read minute
+echo "Hour:"
+read hour
+a="$minute $hour * * *"
+fi
+;;
+3)
+clear
+du -hs /etc/crontab-backup
+echo "============================="
+ls -l /etc/crontab-backup/
+echo "============================="
+echo "Press enter..."
+read temp
+;;
+*)
+;;
+esac
+if [[ ! $user == "" ]]
+then
+echo "$a        $user   cp /etc/crontab /etc/crontab-backup/backup-\$(date +'%H:%M_%d.%m.%Y')" >> /etc/crontab
+list
+user=""
+fi
+}
+
 list() {
 clear
 echo "==========================================="
@@ -118,7 +189,8 @@ echo " 1) Create"
 echo " 2) List"
 echo " 3) Remove"
 echo " 4) Edit"
-echo " 5) Exit"
+echo " 5) Backup"
+echo " 6) Exit"
 read o
 case "$o" in
 "exit"|"q")
@@ -137,6 +209,9 @@ remove
 edit
 ;;
 5)
+backup
+;;
+6)
 exit
 ;;
 *)
